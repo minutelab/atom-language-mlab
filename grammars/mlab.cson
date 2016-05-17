@@ -1,0 +1,190 @@
+'name': 'mlab'
+'scopeName': 'source.mlab'
+'fileTypes': [
+  'mlab'
+]
+'firstLineMatch': '^#!/.*\\bmlab\\b'
+'patterns': [
+    {
+        'match': '^\\s*#.*$'
+        'name': 'comment.block.mlab'
+    }
+    {
+        'begin': '^\\s*(?i)(RUN)(?!\\s*<<)',
+        'beginCaptures':
+            '1':
+                'name': 'keyword.mlab'
+        'end': '(?<!\\\\)\\n',
+        'name': 'string.mlab'
+        'patterns': [
+            {
+                'match': '\\\\\\n'
+                'name': 'keyword.operator.mlab'
+            }
+        ]
+    }
+    {
+        'match': '^\\s*(?i)(ADD|BACKGROUND|EXEC|EXPORT|EXPOSE|FLAG|FROM|IMPORT|INPUT|INSERT|LINK|SHARE|NETCON|NETDEF|OPTION|RUN|SET|SHIFT|START|USER|OUTPUT|WORKDIR)\\s',
+        'captures':
+            '1':
+                'name': 'keyword.mlab'
+    }
+    {
+        'match': '^\\s*(\\S.*)'
+        'name': 'invalid.mlab'
+    }
+    {
+        'include': '#normal'
+    }
+]
+'repository':
+    'normal':
+        'patterns': [
+            {
+                'include': '#heredocs'
+            }
+            {
+                'include': '#symbols'
+            }
+            {
+                'include': '#expand'
+            }
+            {
+                'include': '#string'
+            }
+            {
+                'include': '#flag'
+            }
+            {
+                'include': '#comment'
+            }
+            {
+                'include': '#word'
+            }
+        ]
+    'symbols':
+        'patterns': [
+            {
+                'match': '==|!=|&&|\\|\\||\\(|\\)|=|!'
+                'name': 'keyword.operator.mlab'
+            }
+            {
+                'include': '#escapesymbols'
+            }
+        ]
+    'escapesymbols':
+        'patterns': [
+            {
+                'match': '\\\\([=!&()|\\\\# \\t$"])'
+                'name': 'language.constant.mlab'
+            }
+        ]
+    'expand':
+        'patterns': [
+            {
+                'match': '\\$([0-9@*]|[a-zA-Z_]\\w*|{[a-zA-Z_]\\w*})'
+                'name': 'parameter.variable.mlab'
+            }
+        ]
+    'string':
+        'patterns': [
+            {
+                'match': '"([^"\\\\]|\\\\("|\\\\))*$'
+                'name': 'invalid.mlab'
+            }
+            {
+                'begin': '"'
+                'end': '"'
+                'name': 'string.mlab'
+                'patterns': [
+                    {
+                        'include': '#expand'
+                    }
+                    {
+                        'include': '#escapequote'
+                    }
+                ]
+            }
+            {
+                'match': '\'[^\']*$'
+                'name': 'invalid.mlab'
+            }
+            {
+                'match': '\'[^\']*\''
+                'name': 'string.mlab'
+            }
+        ]
+    'escapequote':
+        'patterns': [
+            {
+                'match': '\\\\"'
+                'name': 'language.constant.mlab'
+            }
+        ]
+    'flag':
+        'patterns': [
+            {
+                'match': '-([a-zA-Z_\d]*)'
+                'name': 'constant.support.mlab'
+            }
+        ]
+    'comment':
+        'patterns': [
+            {
+                'match': '#.*$'
+                'name': 'comment.mlab'
+            }
+        ]
+    'word':
+        'patterns': [
+            {
+                'begin': '\\S'
+                'end': '(?=\\s|==|!=|&&|\\|\\||\\(|\\)|=|!)|$'
+                'name': 'word.mlab'
+                'patterns': [
+                    {
+                        'include': '#expand'
+                    }
+                    {
+                        'include': '#escapesymbols'
+                    }
+                ]
+            }
+        ]
+    'heredocs':
+        'patterns': [
+            {
+                'begin': '(<<)\\s*(\\w+)\\s*$'
+                'beginCaptures':
+                    '1':
+                        'name': 'language.constant.mlab'
+                    '2':
+                        'name': 'parameter.variable.mlab'
+                'end': '^(\\2)$'
+                'endCaptures':
+                    '1':
+                        'name': 'parameter.variable.mlab'
+                'patterns': [
+                    {
+                        'include': '#expand'
+                    }
+                    {
+                        'match': '(\\\\(\\\\|$$))'
+                        'name': 'language.constant.mlab'
+                    }
+                ]
+            }
+            {
+                'begin': '(<<)\\s*("(\\w+)")\\s*$'
+                'beginCaptures':
+                    '1':
+                        'name': 'language.constant.mlab'
+                    '3':
+                        'name': 'parameter.variable.mlab'
+                'end': '^(\\3)$'
+                'endCaptures':
+                    '1':
+                        'name': 'parameter.variable.mlab'
+                'name':'string.mlab'
+            }
+        ]

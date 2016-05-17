@@ -1,0 +1,14 @@
+{
+  "name": "language-mlab",
+  "version": "0.0.0",
+  "description": "Syntax highlighting for MinuteLab mlab scripts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minutelab/atom-language-mlab"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": "*",
+    "node": "*"
+  }
+}
