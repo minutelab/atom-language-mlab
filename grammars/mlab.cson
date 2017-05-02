@@ -24,7 +24,7 @@
         ]
     }
     {
-        'match': '^\\s*(?i)(ADD|BACKCONN|BACKGROUND|EXEC|EXPORT|EXPOSE|FLAG|FROM|HOSTNAME|IMPORT|INPUT|INSERT|LINK|SHARE|NETCON|NETDEF|OPTION|RUN|SET|SHIFT|START|USER|OUTPUT|WORKDIR)\\s',
+        'match': '^\\s*(?i)(ADD|BACKCONN|BACKGROUND|EXEC|EXPORT|EXPOSE|FLAG|FROM|HOSTNAME|IMPORT|INPUT|INSERT|LINK|SHARE|NAME|NETCON|NETDEF|OPTION|RUN|SET|SHIFT|START|USER|OUTPUT|WORKDIR)\\s',
         'captures':
             '1':
                 'name': 'keyword.mlab'
@@ -166,11 +166,11 @@
                         'name': 'parameter.variable.mlab'
                 'patterns': [
                     {
-                        'include': '#expand'
+                        'match': '(\\\\(\\\\|\\$))'
+                        'name': 'language.constant.mlab'
                     }
                     {
-                        'match': '(\\\\(\\\\|$$))'
-                        'name': 'language.constant.mlab'
+                        'include': '#expand'
                     }
                 ]
             }
