@@ -1,6 +1,6 @@
 {
   "name": "language-mlab",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Syntax highlighting for MinuteLab mlab scripts",
   "repository": {
     "type": "git",
